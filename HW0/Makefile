@@ -10,7 +10,7 @@
 # However, -Wall DOES appear, so that we know it’s being used.
 
 export opts=-D_FORTIFY_SOURCE=2 -fno-diagnostics-show-option		\
--fstack-protector-all -g -O3 -std=c++20 -Walloc-zero -Walloca	\
+-fstack-protector-all -g -O3 -Walloc-zero -Walloca	\
 -Wctor-dtor-privacy -Wduplicated-cond -Wduplicated-branches		\
 -Werror -Wextra -Wfatal-errors -Winit-self -Wlogical-op			\
 -Wold-style-cast -Wpedantic -Wshadow -Wunused-const-variable=1	\

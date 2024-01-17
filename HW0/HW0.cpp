@@ -4,7 +4,7 @@ int main() {
    // Knock Knock
    cout << "Knock Knock\n"
    << "Who's There\n"
-   << "Monica\n" << "Monica who?\n" 
-   << "Harmonica \"Sic Harmonica Solo\"\n";
+   << "Who\n" << "Who who?\n" 
+   << "Owl \"Something about an Owl (i forgot)\"\n";
    return 0;
 }
