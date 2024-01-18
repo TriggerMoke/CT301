@@ -87,6 +87,7 @@ int main(int , char* argv[])
                     output += word + " ";
                 }
             }
+            output += "\n";
         }
 
         cout << "Your MadLib!\n\n" << output << "\n\n";
