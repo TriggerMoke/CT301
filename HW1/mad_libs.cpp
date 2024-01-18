@@ -76,9 +76,9 @@ int main(int , char* argv[])
         //TODO: Output the finished madlib like so "Your MadLib!\n\n" followed by their madlib and a new line at the end
 
         while(getline(input_file, line)){
-            stringstream ss(line);
+            stringstream stream(line);
             string word;
-            while(ss >> word){
+            while(stream >> word){
                 if(IsFillInBlank(word)){
                     string user_input = GetUserResponse(word);
                     output += user_input + " ";
@@ -88,6 +88,8 @@ int main(int , char* argv[])
                 }
             }
         }
+
+        cout << "Your MadLib!\n\n" << output << "\n\n";
     
     }
 }
