@@ -16,28 +16,33 @@ using namespace std;
 string program_name;
 // No Changes needed, this method queries a user for input
 bool GetMadLibFile(ifstream& input_file){
-    if (input_file.is_open())
+    if (input_file.is_open()){
         input_file.close();
+    }
+
     cout << "Please enter a valid Mad Libs File or 'exit' to close: ";
     string filename;
     getline(cin, filename);
     string temp = filename;
     transform(filename.begin(), filename.end(), filename.begin(), [](unsigned char c){return tolower(c);});
+
     if (filename == "exit"){
         cout << "Exiting program, Thanks for playing!\n";
         return false;
     }
+
     input_file.open(temp, ifstream::in);
     if (!input_file){
         cerr << program_name << ", Function: GetMadLibFile. Error File cannot be found/opened: " << filename << ".\n";
         return false;
     }
+    
     return true;
 }
 
 bool IsFillInBlank(const string &word){
-  // Check if string begins and ends with '_'. Remember that you can access Strings as ArrayLike for characters
-  return word.front() == '_' && word.back() == '_' && count(word.begin(), word.end(), '_') > 2;
+  // Return true if string begins with '_' and ends with either '_' or a punctuation mark following '_'
+  return word.front() == '_' && (word.back() == '_' || (word[word.size() - 2] == '_' && ispunct(word.back())));
 }
 
 string GetUserResponse(string &fill_in) {
@@ -46,12 +51,20 @@ string GetUserResponse(string &fill_in) {
   // Use the std library "replace" function to replace all instances of '_' with ' '
   // Remember to remove any floating ' ' characters from the begining and end of the string before requesting the fill in word
   // When getting data back from the user you need to get all of what the user types, they should be able to enter multiple words as their fill in the blank
-  fill_in.erase(remove(fill_in.begin(), fill_in.end(), '_'), fill_in.end());
+
+  // Replace all instances of '_' with ' '
   replace(fill_in.begin(), fill_in.end(), '_', ' ');
 
+  // If the last character is punctuation, remove it
+  if (ispunct(fill_in.back())) {
+    fill_in.pop_back();
+  }
+
+  // Remove any floating ' ' characters from the beginning and end of the string
   fill_in.erase(0, fill_in.find_first_not_of(' '));
   fill_in.erase(fill_in.find_last_not_of(' ') + 1);
 
+  // Query the user for a replacement
   cout << "Please enter a \"" << fill_in << "\": ";
   string user_input;
   getline(cin, user_input);
