@@ -36,8 +36,8 @@ bool GetMadLibFile(ifstream& input_file){
 }
 
 bool IsFillInBlank(const string &word){
-    // Check if string begins and ends with '_'. Remember that you can access Strings as ArrayLike for characters
-    return word.front() == '_' && word.back() == '_';
+  // Check if string begins and ends with '_'. Remember that you can access Strings as ArrayLike for characters
+  return word.front() == '_' && word.back() == '_' && count(word.begin(), word.end(), '_') > 2;
 }
 
 string GetUserResponse(string &fill_in) {
@@ -52,7 +52,7 @@ string GetUserResponse(string &fill_in) {
   fill_in.erase(0, fill_in.find_first_not_of(' '));
   fill_in.erase(fill_in.find_last_not_of(' ') + 1);
 
-  cout << "Please enter a " << fill_in << ": ";
+  cout << "Please enter a \"" << fill_in << "\": ";
   string user_input;
   getline(cin, user_input);
   return user_input;
@@ -83,8 +83,7 @@ int main(int, char* argv[]) {
       }
       output += "\n";
     }
-
-    cout << "Your MadLib!\n\n" << output << "\n\n";
+    cout << "Your MadLib!\n\n" << output << "\n";
   }
 }
 
