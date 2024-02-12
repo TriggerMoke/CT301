@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
     cout << game;
     game.NextGen();
     cout << game;
-    game.NextNGen(2);
+    game.NextNGen(5);
     cout << game;
     return 0;
 }
