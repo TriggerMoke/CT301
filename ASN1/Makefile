@@ -9,8 +9,8 @@
 # says “g++ $opts …” and it doesn’t list all the tedious options.
 # However, -Wall DOES appear, so that we know it’s being used.
 
-export opts=-D_FORTIFY_SOURCE=2 -fno-diagnostics-show-option		\
--fstack-protector-all -g -O3 -Walloc-zero -Walloca	\
+export opts=-D_FORTIFY_SOURCE=2 -fno-diagnostics-show-option	\
+-fstack-protector-all -g -O3 -std=c++20 -Walloc-zero -Walloca	\
 -Wctor-dtor-privacy -Wduplicated-cond -Wduplicated-branches		\
 -Werror -Wextra -Wfatal-errors -Winit-self -Wlogical-op			\
 -Wold-style-cast -Wpedantic -Wshadow -Wunused-const-variable=1	\
@@ -19,14 +19,20 @@ CXXFLAGS=-Wall $$opts
 
 assignment=ASN1
 
-$(assignment): 
-	g++ $(CXXFLAGS) -o $(assignment) mad_libs.cpp
+$(assignment).a: game_of_life.o
+		ar -rcs $(assignment).a game_of_life.o
 
+game_of_life.o: game_of_life.cpp
+		g++ -c $(CXXFLAGS) game_of_life.cpp
+		
+test: $(assignment).a
+		g++ -o test test.cpp $(assignment).a
+	
 tar:
-	tar -cf $(assignment).tar *.cpp Makefile
+		tar -cf $(assignment).tar *.cpp Makefile *.h
 
 checkin: tar
 	~ct301/bin/checkin $(assignment) $(assignment).tar
 
 clean:
-	rm -f $(assignment) $(assignment).tar *.o *.gch *.gcov a.out
+		rm -f $(assignment) $(assignment).tar *.o *.gch *.gcov a.out *.a *.exe

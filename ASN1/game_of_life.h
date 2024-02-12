@@ -12,6 +12,13 @@ public:
     game_of_life() = delete;
     game_of_life(std::string filename);
     friend std::ostream &operator<<(std::ostream &os, const game_of_life &game);
+
+    void NextGen();
+    void NextNGen(int n);
+    int GetGenerations() const;
+    
 };
+
+// Operator Overload for << for game state output
 std::ostream &operator<<(std::ostream &os, const game_of_life &game);
 #endif
