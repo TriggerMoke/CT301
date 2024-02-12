@@ -32,11 +32,6 @@ game_of_life::game_of_life(string filename)
     {
         getline(file_in, line);
 
-        // Check if the length of the line matches the width
-        if (line.length() != this->width_) {
-            throw(runtime_error("Invalid file format: The number of characters in a row does not match the width specified at the beginning of the file."));
-        }
-
         //For all Columns in the row
         for (int col = 0; col < this->width_; ++col)
         {
