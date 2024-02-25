@@ -11,7 +11,7 @@ class Circle : public Shape {
 
 public:
     Circle() : radius(1.0) {}
-    Circle(double radius) : radius(radius) {}
+    Circle(double inRadius) : radius(inRadius) {}
 
     double& Radius() { return radius; }
 
