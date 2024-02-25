@@ -12,7 +12,7 @@ protected:
 
 public:
     Rectangle() : width(1.0), height(1.0) {}
-    Rectangle(double width, double height) : width(width), height(height) {}
+    Rectangle(double inWidth, double inHeight) : width(inWidth), height(inHeight) {}
 
     double Width() const { return width; }
     double Height() const { return height; }

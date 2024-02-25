@@ -11,7 +11,7 @@ class Triangle : public Shape {
 
 public:
     Triangle() : side(1.0) {}
-    Triangle(double side) : side(side) {}
+    Triangle(double inSide) : side(inSide) {}
 
     double Height() const { return (side * sqrt(3)) / 2; }
     double& Side() { return side; }
