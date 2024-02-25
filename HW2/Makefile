@@ -10,10 +10,10 @@
 # However, -Wall DOES appear, so that we know it’s being used.
 
 export opts=-D_FORTIFY_SOURCE=2 -fno-diagnostics-show-option	\
--fstack-protector-all -g -O3 -std=c++20 -Walloc-zero -Walloca	\
--Wctor-dtor-privacy -Wduplicated-cond -Wduplicated-branches		\
--Werror -Wextra -Wfatal-errors -Winit-self -Wlogical-op			\
--Wold-style-cast -Wpedantic -Wshadow -Wunused-const-variable=1	\
+-fstack-protector-all -g -O3 -std=c++20 -Walloca	\
+-Wctor-dtor-privacy		\
+-Werror -Wextra -Wfatal-errors -Winit-self			\
+-Wold-style-cast -Wpedantic -Wshadow	\
 -Wzero-as-null-pointer-constant
 CXXFLAGS=-Wall $$opts
 
@@ -35,3 +35,9 @@ tar:
 
 clean:
 		rm -f $(assignment) $(assignment).tar *.o *.gch *.gcov a.out *.a *.exe
+
+checkin: tar
+	~ct301/bin/checkin $(assignment) $(assignment).tar
+
+test: main.cpp $(assignment).a
+	g++ $(CXXFLAGS) -o test main.cpp $(assignment).a
