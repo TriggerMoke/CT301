@@ -9,7 +9,7 @@
 class Square : public Rectangle {
 public:
     Square() : Rectangle(1.0, 1.0) {}
-    Square(double width) : Rectangle(width, width) {}
+    Square(double inWidth) : Rectangle(inWidth, inWidth) {}
 
     // Deleting the Height method to prevent misuse
     double& Height() = delete;
