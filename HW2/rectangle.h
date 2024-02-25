@@ -16,8 +16,8 @@ public:
     double& Width() { return width; }
     double& Height() { return height; }
 
-    //double Width() const { return width; }
-    //double Height() const { return height; }
+    double Width() const { return width; }
+    double Height() const { return height; }
 
     double GetArea() const override
     {
