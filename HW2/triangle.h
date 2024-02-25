@@ -19,7 +19,6 @@ public:
     double GetArea() const override { return (sqrt(3) / 4) * side * side; }
     double GetPerimeter() const override { return 3 * side; }
     std::ostream& Print(std::ostream& os) const override {
-        os << std::fixed << std::setprecision(1);
         return os << "Triangle\nSide: " << side << "\nHeight: " << Height() 
                   << "\nArea: " << GetArea() << "\nPerimeter: " << GetPerimeter() << "\n";
     }

@@ -18,8 +18,8 @@ public:
     double GetArea() const override { return 3.14 * radius * radius; }
     double GetPerimeter() const override { return 2 * 3.14 * radius; }
     std::ostream& Print(std::ostream& os) const override {
-        os << std::fixed << std::setprecision(1);
-        return os << "Circle\nRadius: " << radius << "\nArea: " << GetArea() << "\nPerimeter: " << GetPerimeter() << "\n";
+        return os << "Circle\nRadius: " << radius << "\nArea: " << GetArea() 
+                  << "\nPerimeter: " << GetPerimeter() << "\n";
     }
 
     // Operator overloads

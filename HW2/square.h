@@ -3,7 +3,6 @@
 
 #include "rectangle.h"
 #include <cmath>
-#include <iomanip>
 
 
 class Square : public Rectangle {
@@ -21,7 +20,6 @@ public:
         return 4 * Rectangle::Width();
     }
     std::ostream& Print(std::ostream& os) const override {
-        os << std::fixed << std::setprecision(1);
         return os << "Square\nWidth: " << Rectangle::Width() << "\nArea: " << GetArea() 
                   << "\nPerimeter: " << GetPerimeter() << "\n";
     }

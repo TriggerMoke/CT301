@@ -27,7 +27,6 @@ public:
     }
     std::ostream &Print(std::ostream &os) const override
     {
-        os << std::fixed << std::setprecision(1);
         return os << "Rectangle\nHeight: " << height << "\nWidth: " << width
                   << "\nArea: " << GetArea() << "\nPerimeter: " << GetPerimeter() << "\n";
     }
