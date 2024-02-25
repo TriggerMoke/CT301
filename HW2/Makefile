@@ -26,9 +26,6 @@ default: $(assignment).a
 
 $(assignment).a: circle.o square.o triangle.o rectangle.o shape.o
 		ar -rcs $(assignment).a *.o
-
-test: $(assignment).a
-		g++ -o test.exe test.cpp $(assignment).a
 	
 tar:
 		tar -cf $(assignment).tar *.cpp Makefile *.h

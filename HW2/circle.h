@@ -3,7 +3,6 @@
 
 #include "shape.h"
 #include <cmath>
-#include <iomanip>
 
 
 class Circle : public Shape {
