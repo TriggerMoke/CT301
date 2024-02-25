@@ -13,8 +13,11 @@ public:
     Rectangle() : width(1.0), height(1.0) {}
     Rectangle(double inWidth, double inHeight) : width(inWidth), height(inHeight) {}
 
-    double Width() const { return width; }
-    double Height() const { return height; }
+    double& Width() { return width; }
+    double& Height() { return height; }
+
+    //double Width() const { return width; }
+    //double Height() const { return height; }
 
     double GetArea() const override
     {
