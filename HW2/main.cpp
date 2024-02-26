@@ -7,6 +7,10 @@
 
 using std::cout;
 
+
+// Really just a test program, not needed for the assignment
+// Just to show that the classes work as expected
+
 int main() {
 	// Circle test
     Circle circle_1(10);
@@ -29,7 +33,7 @@ int main() {
     // Square test
     Square square_1(4);
     Square square_2(2);
-    Square square_3 = square_1 + square_2; // Assuming operator+ treats squares like rectangles for simplicity
+    Square square_3 = square_1 + square_2;
 
     cout << "square_1:\n" << square_1 << '\n';
     cout << "square_2:\n" << square_2 << '\n';
@@ -38,7 +42,7 @@ int main() {
     // Triangle test
     Triangle tri_1(4);
     Triangle tri_2(3);
-    Triangle tri_3 = tri_1 + tri_2; // Assuming simple side addition
+    Triangle tri_3 = tri_1 + tri_2;
 
     cout << "tri_1:\n" << tri_1 << '\n';
     cout << "tri_2:\n" << tri_2 << '\n';
