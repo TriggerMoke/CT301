@@ -1,53 +1,54 @@
-#ifndef SQUARE_H
-#define SQUARE_H
+#ifndef SQUARE_H_
+#define SQUARE_H_
 
 #include "rectangle.h"
+
 #include <cmath>
 #include <iostream>
 
 class Square : public Rectangle {
  public:
   Square() : Rectangle(1.0, 1.0) {}
-  explicit Square(double inWidth) : Rectangle(inWidth, inWidth) {}
+  explicit Square(double width) : Rectangle(width, width) {}
 
-  // Deleting the Height method as square's height is always equal to its width
-  double& Height() = delete;
+  // Deleting the height method as square's height is always equal to its width
+  double& height() = delete;
 
   double GetArea() const override {
-    return Rectangle::Width() * Rectangle::Width();
+    return width_ * width_;
   }
 
   double GetPerimeter() const override {
-    return 4 * Rectangle::Width();
+    return 4 * width_;
   }
 
   std::ostream& Print(std::ostream& os) const override {
-    return os << "Square\nWidth: " << Rectangle::Width() << "\nArea: " << GetArea() 
+    return os << "Square\nWidth: " << width_ << "\nArea: " << GetArea() 
               << "\nPerimeter: " << GetPerimeter() << "\n";
   }
 
   // Operator overloads
   Square operator+(const Square& rhs) const {
-    double newWidth = Rectangle::Width() + rhs.Rectangle::Width();
-    return Square(newWidth);
+    double new_width = width_ + rhs.width_;
+    return Square(new_width);
   }
 
   Square operator-(const Square& rhs) const {
-    double newWidth = std::abs(Rectangle::Width() - rhs.Rectangle::Width());
-    return Square(newWidth);
+    double new_width = std::abs(width_ - rhs.width_);
+    return Square(new_width);
   }
 
   Square& operator+=(const Square& rhs) {
-    this->width += rhs.Rectangle::Width();
-    this->height = this->width; // Ensure it remains a square
+    width_ += rhs.width_;
+    height_ = width_;  // Ensure it remains a square
     return *this;
   }
 
   Square& operator-=(const Square& rhs) {
-    this->width = std::abs(this->width - rhs.Rectangle::Width());
-    this->height = this->width; // Ensure it remains a square
+    width_ = std::abs(width_ - rhs.width_);
+    height_ = width_;  // Ensure it remains a square
     return *this;
   }
 };
 
-#endif // SQUARE_H
+#endif  // SQUARE_H_

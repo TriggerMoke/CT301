@@ -1,58 +1,55 @@
 #ifndef RECTANGLE_H_
 #define RECTANGLE_H_
 
-#include "shape.h"
-
 #include <cmath>
+
+#include "shape.h"
 
 class Rectangle : public Shape {
  protected:
-    double width;
-    double height;
+    double width_;
+    double height_;
 
  public:
-    Rectangle() : width(1.0), height(1.0) {}
-    Rectangle(double in_width, double in_height) : width(in_width), height(in_height) {}
+    Rectangle() : width_(1.0), height_(1.0) {}
+    Rectangle(double width, double height) : width_(width), height_(height) {}
 
+    double& width() { return width_; }
+    double& height() { return height_; }
 
-    // Need reference and const 
-    double& Width() { return width; }
-    double& Height() { return height; }
-
-    double Width() const { return width; }
-    double Height() const { return height; }
+    double width() const { return width_; }
+    double height() const { return height_; }
 
     double GetArea() const override {
-        return width * height;
+        return width_ * height_;
     }
 
     double GetPerimeter() const override {
-        return 2 * (width + height);
+        return 2 * (width_ + height_);
     }
 
     std::ostream& Print(std::ostream& os) const override {
-        return os << "Rectangle\nHeight: " << height << "\nWidth: " << width
+        return os << "Rectangle\nHeight: " << height_ << "\nWidth: " << width_
                             << "\nArea: " << GetArea() << "\nPerimeter: " << GetPerimeter() << "\n";
     }
 
-    // Operator overloads
     Rectangle operator+(const Rectangle& rhs) const {
-        return Rectangle(width + rhs.width, height + rhs.height);
+        return Rectangle(width_ + rhs.width_, height_ + rhs.height_);
     }
 
     Rectangle operator-(const Rectangle& rhs) const {
-        return Rectangle(std::abs(width - rhs.width), std::abs(height - rhs.height));
+        return Rectangle(std::abs(width_ - rhs.width_), std::abs(height_ - rhs.height_));
     }
 
     Rectangle& operator+=(const Rectangle& rhs) {
-        width += rhs.width;
-        height += rhs.height;
+        width_ += rhs.width_;
+        height_ += rhs.height_;
         return *this;
     }
 
     Rectangle& operator-=(const Rectangle& rhs) {
-        width = std::abs(width - rhs.width);
-        height = std::abs(height - rhs.height);
+        width_ = std::abs(width_ - rhs.width_);
+        height_ = std::abs(height_ - rhs.height_);
         return *this;
     }
 

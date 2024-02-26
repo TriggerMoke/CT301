@@ -43,5 +43,18 @@ int main() {
     cout << "tri_2:\n" << tri_2 << '\n';
     cout << "tri_1 + tri_2:\n" << tri_3 << '\n';
 
+    // Shape* tests
+    Shape* shape_ptr = &circle_1;
+    cout << "Shape* pointing to circle_1:\n" << *shape_ptr << '\n';
+
+    shape_ptr = &rect_1;
+    cout << "Shape* pointing to rect_1:\n" << *shape_ptr << '\n';
+
+    shape_ptr = &square_1;
+    cout << "Shape* pointing to square_1:\n" << *shape_ptr << '\n';
+
+    shape_ptr = &tri_1;
+    cout << "Shape* pointing to tri_1:\n" << *shape_ptr << '\n';
+
 	return 0;
 }
