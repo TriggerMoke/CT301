@@ -6,10 +6,6 @@
 
 using std::cout;
 
-std::ostream &operator<<(std::ostream &os, const Shape &rhs) {
-    return rhs.Print(os); // Call Print on the reference directly.
-}
-
 int main() {
 	// Circle test
     Circle circle_1(10);

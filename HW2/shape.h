@@ -10,7 +10,7 @@ class Shape {
     virtual double GetPerimeter() const = 0;
     virtual std::ostream& Print(std::ostream& os) const = 0;
 
-    friend std::ostream& operator<<(std::ostream& os, const Shape& rhs);
+    friend std::ostream &operator<<(std::ostream &os, const Shape *shape);
 };
 
 #endif  // SHAPE_H_
