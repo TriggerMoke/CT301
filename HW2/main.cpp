@@ -2,6 +2,7 @@
 #include "rectangle.h"
 #include "square.h"
 #include "triangle.h"
+#include "shape.h"
 #include <iostream>
 
 using std::cout;
