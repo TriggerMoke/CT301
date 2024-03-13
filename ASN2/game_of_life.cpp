@@ -3,7 +3,7 @@
 /* * * * * * * * * * * * *
  *                       *
  *    USING OPTION 1     *
- *                       *
+ *    (My old code)      *
  * * * * * * * * * * * * */
 
 #include <iostream>
