@@ -72,6 +72,7 @@ void GameOfLife::SetLiveCell(char liveCell)
   {
     throw runtime_error("Live cell character cannot be the same as dead cell character.");
   }
+  UpdateCellChars(liveCell_, liveCell);
   liveCell_ = liveCell;
 }
 
@@ -81,7 +82,16 @@ void GameOfLife::SetDeadCell(char deadCell)
   {
     throw runtime_error("Dead cell character cannot be the same as live cell character.");
   }
+  UpdateCellChars(deadCell_, deadCell);
   deadCell_ = deadCell;
+}
+
+/* Function to update cells after character change, *
+*  without this the game will recognize the oldChar * 
+*  as a dead cell, and promptly break.              */
+void GameOfLife::UpdateCellChars(char oldChar, char newChar)
+{
+  replace(this->current_.begin(), this->current_.end(), oldChar, newChar);
 }
 
 // Operator Overloads

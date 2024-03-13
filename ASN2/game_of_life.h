@@ -41,6 +41,7 @@ public:
     //It throws a runtime error if the display characters are duplicated
     void SetLiveCell(char liveCell);
     void SetDeadCell(char deadCell);
+    void GameOfLife::UpdateCellChars(char oldChar, char newChar);
 
     GameOfLife operator+(int n) const;
     GameOfLife& operator+=(int n);
