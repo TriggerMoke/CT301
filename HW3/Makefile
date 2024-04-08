@@ -30,3 +30,6 @@ checkin:
 
 clean:
 	rm -f $(assignment) $(assignment).tar *.o *.gch *.gcov a.out
+
+test:
+	g++ $(CXXFLAGS) -o test_runner testVect.cpp
