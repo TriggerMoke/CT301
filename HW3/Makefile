@@ -25,8 +25,8 @@ $(assignment):
 tar:
 	tar -cf $(assignment).tar *.h Makefile
 
-checkin: tar
-	~ct301/bin/checkin $(assignment) $(assignment).tar
+checkin: 
+	~ct301/bin/checkin $(assignment) basic_vector.h
 
 clean:
 	rm -f $(assignment) $(assignment).tar *.o *.gch *.gcov a.out
