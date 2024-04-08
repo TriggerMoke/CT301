@@ -138,6 +138,8 @@ size_t basic_vector<T>::max_size() const
 {
     // ??? like for real? I am not even sure why this works this way
     const size_t max_index = (static_cast<size_t>(1) << 31) - 1;
+    // Like if i dont divide by sizeof(T) then the size ouputs as double the size of the vector, but if i do divide by sizeof(T) then it is half of the size of the vector...
+    // And multiplying by 2 is the only way to get the correct size of the vector, realistically could get rid of the -1 & +1 but it works so I am not going to touch it.
     return ((max_index / sizeof(T) * 2) + 1);
 }
 
