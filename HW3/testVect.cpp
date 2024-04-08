@@ -37,7 +37,8 @@ void million_size_test() {
 
 int main() {
     test_size();
-
+    std::cout << "------------------------------------" << std::endl;
+    million_size_test();
 
     return 0;
 }
