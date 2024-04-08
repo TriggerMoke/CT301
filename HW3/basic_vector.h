@@ -97,11 +97,13 @@ basic_vector<T>::~basic_vector() {
 /* Copy Assignment Operator */
 // Input, basic_vector rhs: Vector to be copied.
 // Returns, basic_vector&: Reference to *this vector after copying.
-// Description: Assigns rhs to the current vector using the copy-swap idiom.
+// Description: Assigns rhs to the current vector.
 // Implementation: Swaps *this with rhs, effectively copying rhs and deallocating old memory of *this.
 template<typename T>
 basic_vector<T>& basic_vector<T>::operator=(basic_vector rhs) {
-    swap(rhs);
+    if (&rhs != this) {
+        swap(rhs);
+    }
     return *this;
 }
 
@@ -217,24 +219,6 @@ void basic_vector<T>::shrink_to_fit() {
     }
 }
 
-/* reallocate (private) */
-// Input, size_t new_capacity: The new capacity for the vector.
-// Returns: None
-// Description: Allocates new memory for the vector and moves existing elements to the new memory block.
-// Implementation: Creates a new dynamic array of the specified capacity, moves existing elements, and deallocates old memory.
-template<typename T>
-void basic_vector<T>::reallocate(size_t new_capacity) {
-    T* new_data = new T[new_capacity];
-    for (size_t i = 0; i < size_; ++i) {
-        new_data[i] = std::move(data_[i]); // Move existing elements to the new array
-    }
-    delete[] data_;
-    data_ = new_data;
-    capacity_ = new_capacity;
-}
-
-
-
 // Element access
 
 /* operator[] */
@@ -316,7 +300,7 @@ template<typename T>
 void basic_vector<T>::pop_back() {
     if (size_ > 0) {
         --size_;
-        // Directly reducing size. Assume destructors are handled if necessary for complex types.
+        delete data_[size_];
     }
 }
 
@@ -370,7 +354,7 @@ template<typename T>
 void basic_vector<T>::reallocate(size_t new_capacity) {
     T* new_data = new T[new_capacity];
     for (size_t i = 0; i < size_; ++i) {
-        new_data[i] = std::move(data_[i]); // Move existing elements to the new array
+        new_data[i] = std::move(data_[i]);
     }
     delete[] data_;
     data_ = new_data;
