@@ -23,7 +23,7 @@ $(assignment):
 	g++ $(CXXFLAGS) -o $(assignment) basic_vector.h
 
 tar:
-	tar -cf $(assignment).tar *.cpp Makefile
+	tar -cf $(assignment).tar *.h Makefile
 
 checkin: tar
 	~ct301/bin/checkin $(assignment) $(assignment).tar
