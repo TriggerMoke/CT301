@@ -136,7 +136,8 @@ size_t basic_vector<T>::size() const
 template <typename T>
 size_t basic_vector<T>::max_size() const
 {
-    return (static_cast<size_t>(-1) / sizeof(T)) - 1;
+    const size_t max_index = (static_cast<size_t>(1) << 31) - 1;
+    return max_index / sizeof(T);
 }
 
 /* capacity */
