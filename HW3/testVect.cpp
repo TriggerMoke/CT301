@@ -1,30 +1,27 @@
 #include <iostream>
-
-// Assuming that the basic_vector template class is defined in "basic_vector.h"
 #include "basic_vector.h"
 
+// Helper function to report test results
+void report_test(const std::string& test_name, bool passed) {
+    std::cout << "Test " << test_name << ": " << (passed ? "PASSED" : "FAILED") << std::endl;
+}
+
+// Test function
+void test_size() {
+    basic_vector<int> vec;
+    vec.push_back(1);
+    vec.push_back(2);
+
+    // Expected vs Actual
+    size_t expected_size = 2;
+    size_t actual_size = vec.size();
+
+    report_test("test_size", expected_size == actual_size);
+}
+
 int main() {
-    basic_vector<int> int_vector;
-    basic_vector<char> char_vector;
-    basic_vector<double> double_vector;
+    test_size();
 
-    // Add some elements to the vectors
-    int_vector.push_back(1);
-    int_vector.push_back(2);
-
-    char_vector.push_back('a');
-    char_vector.push_back('b');
-    char_vector.push_back('c');
-
-    double_vector.push_back(1.1);
-    double_vector.push_back(2.2);
-    double_vector.push_back(3.3);
-    double_vector.push_back(4.4);
-
-    // Output the sizes of the vectors
-    std::cout << "int_vector size: " << int_vector.size() << std::endl;
-    std::cout << "char_vector size: " << char_vector.size() << std::endl;
-    std::cout << "double_vector size: " << double_vector.size() << std::endl;
 
     return 0;
 }
