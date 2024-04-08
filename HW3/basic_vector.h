@@ -105,16 +105,6 @@ basic_vector<T>& basic_vector<T>::operator=(basic_vector rhs) {
     return *this;
 }
 
-
-template<typename T>
-void basic_vector<T>::swap(basic_vector& swerp) {
-    std::swap(data_, swerp.data_);
-    std::swap(size_, swerp.size_);
-    std::swap(capacity_, swerp.capacity_);
-}
-
-
-
 // Capacity methods
 
 /* size */
@@ -227,18 +217,6 @@ void basic_vector<T>::shrink_to_fit() {
     }
 }
 
-/* swap */
-// Input, basic_vector& swerp: Another vector to swap contents with.
-// Returns: None
-// Description: Exchanges the contents of the vector with those of another vector.
-// Implementation: Swaps the data, size, and capacity members with those of the other vector.
-template<typename T>
-void basic_vector<T>::swap(basic_vector& swerp) {
-    std::swap(data_, swerp.data_);
-    std::swap(size_, swerp.size_);
-    std::swap(capacity_, swerp.capacity_);
-}
-
 /* reallocate (private) */
 // Input, size_t new_capacity: The new capacity for the vector.
 // Returns: None
@@ -342,27 +320,27 @@ void basic_vector<T>::pop_back() {
     }
 }
 
-/* swap */
-// Input, basic_vector& other: Another vector to swap contents with.
-// Returns: None
-// Description: Swaps the contents of this vector with another vector.
-// Implementation: Uses std::swap to exchange the data pointers, sizes, and capacities of the two vectors.
-template<typename T>
-void basic_vector<T>::swap(basic_vector& other) {
-    std::swap(data_, other.data_);
-    std::swap(size_, other.size_);
-    std::swap(capacity_, other.capacity_);
-}
-
 /* clear */
 // Input: None
 // Returns: None
-// Description: Clears the vector of all elements, resetting its size to 0.
-// Implementation: Resets the size to 0. Assumes destructors are called if necessary for complex types.
+// Description: Removes all elements from the vector, setting its size to 0.
+// Implementation: Calls the destructor for each element if necessary and sets the size to 0.
 template<typename T>
 void basic_vector<T>::clear() {
+    destroy_elements(data_, size_);
     size_ = 0;
-    // Optional: For types that require it, manually call destructors for each element before resetting size.
+}
+
+/* swap */
+// Input, basic_vector& swerp: Another vector to swap contents with.
+// Returns: None
+// Description: Exchanges the contents of the vector with those of another vector.
+// Implementation: Swaps the data, size, and capacity members with those of the other vector.
+template<typename T>
+void basic_vector<T>::swap(basic_vector& swerp) {
+    std::swap(data_, swerp.data_);
+    std::swap(size_, swerp.size_);
+    std::swap(capacity_, swerp.capacity_);
 }
 
 // Helper functions
