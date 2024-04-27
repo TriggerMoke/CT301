@@ -77,20 +77,11 @@ GameOfLife::GameOfLife(const GameOfLife& other) {
     previousGenerations_ = other.previousGenerations_;
 }
 
-// Copy assignment operator
-GameOfLife& GameOfLife::operator=(const GameOfLife& other) {
-    if (this != &other) {
-        current_ = other.current_;
-        generations_ = other.generations_;
-        width_ = other.width_;
-        height_ = other.height_;
-        deadCell_ = other.deadCell_;
-        liveCell_ = other.liveCell_;
-        safeGenerations_ = other.safeGenerations_;
-        previousGenerations_ = other.previousGenerations_;
-    }
-    return *this;
-}
+// Private constructor
+
+GameOfLife::GameOfLife(int height, int width, std::string gameBoard, char liveCell, char deadCell)
+    : height_(height), width_(width), liveCell_(liveCell), deadCell_(deadCell), generations_(0), current_(gameBoard) {}
+
 
 // Setters for live and dead cells
 void GameOfLife::SetLiveCell(char liveCell)
@@ -128,21 +119,6 @@ ostream &operator<<(ostream &os, const GameOfLife &game)
     os << "\n";
   }
   return os;
-}
-
-// ASN2 Overloads
-
-GameOfLife GameOfLife::operator+(int n) const
-{
-  GameOfLife temp = *this;
-  temp.NextNGen(n);
-  return temp;
-}
-
-GameOfLife &GameOfLife::operator+=(int n)
-{
-  NextNGen(n);
-  return *this;
 }
 
 GameOfLife &GameOfLife::operator++()
@@ -205,6 +181,22 @@ GameOfLife GameOfLife::operator-() const {
     }
     return result;
 }
+
+// Copy assignment operator
+GameOfLife& GameOfLife::operator=(const GameOfLife& other) {
+    if (this != &other) {
+        current_ = other.current_;
+        generations_ = other.generations_;
+        width_ = other.width_;
+        height_ = other.height_;
+        deadCell_ = other.deadCell_;
+        liveCell_ = other.liveCell_;
+        safeGenerations_ = other.safeGenerations_;
+        previousGenerations_ = other.previousGenerations_;
+    }
+    return *this;
+}
+
 
 // Comparison operators
 bool GameOfLife::operator==(const GameOfLife &other) const
@@ -323,9 +315,6 @@ std::string GameOfLife::GenWindow(int row, int col, int height, int width) {
     }
     return window;
 }
-
-GameOfLife::GameOfLife(int height, int width, std::string gameBoard, char liveCell, char deadCell)
-    : height_(height), width_(width), current_(gameBoard), liveCell_(liveCell), deadCell_(deadCell) {}
 
 GameOfLife GameOfLife::GenSubGame(int row, int col, int height, int width) {
     std::string window = GenWindow(row, col, height, width);

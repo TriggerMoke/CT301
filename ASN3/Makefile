@@ -9,10 +9,12 @@
 # says “g++ $opts …” and it doesn’t list all the tedious options.
 # However, -Wall DOES appear, so that we know it’s being used.
 
+# Moved flags: -Wfatal-errors -Werror
+
 export opts=-D_FORTIFY_SOURCE=2 -fno-diagnostics-show-option	\
 -fstack-protector-all -g -O3 -Walloc-zero -Walloca	\
 -Wctor-dtor-privacy -Wduplicated-cond -Wduplicated-branches		\
--Werror -Wextra -Wfatal-errors -Winit-self -Wlogical-op			\
+ -Wextra -Winit-self -Wlogical-op			\
 -Wold-style-cast -Wpedantic -Wshadow -Wunused-const-variable=1	\
 -Wzero-as-null-pointer-constant
 CXXFLAGS=-Wall $$opts
@@ -22,7 +24,7 @@ assignment=ASN3
 $(assignment).a: game_of_life.o
 		ar -rcs $(assignment).a game_of_life.o
 
-game_of_life.o: game_of_life.cpp
+game_of_life.o: game_of_life.cc
 		g++ -c $(CXXFLAGS) game_of_life.cc
 		
 test: $(assignment).a

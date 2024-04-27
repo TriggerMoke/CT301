@@ -13,11 +13,15 @@ struct game_save_state {
 
 class GameOfLife
 {
+    // Keep getting this annoying error about order of declaration...
+    int height_ = 0; int width_ = 0; char liveCell_ = '*'; char deadCell_ = '-';
+
     std::string current_;
-    int generations_ = 0, width_ = 0, height_ = 0;
-    char deadCell_ = '-', liveCell_ = '*';
+    int generations_ = 0;
     int safeGenerations_ = 0;
     std::array<game_save_state, 100> previousGenerations_;
+
+    
 private:
     GameOfLife(int height, int width, std::string gameBoard, char liveCell, char deadCell);
 public:
@@ -46,8 +50,6 @@ public:
     void SetLiveCell(char liveCell);
     void SetDeadCell(char deadCell);
 
-    GameOfLife operator+(int n) const;
-    GameOfLife& operator+=(int n);
     GameOfLife& operator++();
     GameOfLife operator++(int);
 
