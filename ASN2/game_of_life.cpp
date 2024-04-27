@@ -3,7 +3,7 @@
 /* * * * * * * * * * * * *
  *                       *
  *    USING OPTION 1     *
- *                       *
+ *    (My old code)      *
  * * * * * * * * * * * * */
 
 #include <iostream>
@@ -17,6 +17,9 @@ using namespace std;
 
 // Constructors
 
+
+/* Constructor that takes a filename as input and initializes the game state based on the file contents.
+ * The file must contain the width X height of the grid on the first line, followed by the grid itself. */
 GameOfLife::GameOfLife(string filename)
 {
   fstream file_in(filename);
@@ -47,17 +50,22 @@ GameOfLife::GameOfLife(string filename)
   }
 }
 
+// Following constructors are all based on the first constructor and use it to initialize the game state.
+
+/* Constructor that takes a filename and a generation count as input */
 GameOfLife::GameOfLife(string filename, int genCount) : GameOfLife(filename)
 {
   NextNGen(genCount);
 }
 
+/* Constructor that takes a filename, live cell, and dead cell characters as input */
 GameOfLife::GameOfLife(string filename, char liveCell, char deadCell) : GameOfLife(filename)
 {
   SetLiveCell(liveCell);
   SetDeadCell(deadCell);
 }
 
+/* Constructor that takes a filename, live cell, dead cell characters, and a generation count as input */
 GameOfLife::GameOfLife(string filename, char liveCell, char deadCell, int genCount) : GameOfLife(filename)
 {
   SetLiveCell(liveCell);
@@ -66,27 +74,42 @@ GameOfLife::GameOfLife(string filename, char liveCell, char deadCell, int genCou
 }
 
 // Setters for live and dead cells
+
+/* Changes the current Live or Dead cell to a new character.                                      *  
+ * It cannot be set to whatever the current Dead/Live Cell character is, otherwise runtime error. *
+ * After setting the board will be updated                                                        */
 void GameOfLife::SetLiveCell(char liveCell)
 {
   if (liveCell == deadCell_)
   {
     throw runtime_error("Live cell character cannot be the same as dead cell character.");
   }
+  UpdateCellChars(liveCell_, liveCell);
   liveCell_ = liveCell;
 }
 
+/* Same as SetLiveCell but for the dead cell */
 void GameOfLife::SetDeadCell(char deadCell)
 {
   if (deadCell == liveCell_)
   {
     throw runtime_error("Dead cell character cannot be the same as live cell character.");
   }
+  UpdateCellChars(deadCell_, deadCell);
   deadCell_ = deadCell;
+}
+
+/* Function to update cells after character change, *
+*  without this the game will recognize the oldChar * 
+*  as a dead cell, and promptly break.              */
+void GameOfLife::UpdateCellChars(char oldChar, char newChar)
+{
+  replace(this->current_.begin(), this->current_.end(), oldChar, newChar);
 }
 
 // Operator Overloads
 
-/* Overloads the << operator to print the current state of the game.
+/* Overloads the << operator to print the current state of the game.      *
  * Displays the generation count and the game board in a readable format. */
 ostream &operator<<(ostream &os, const GameOfLife &game)
 {
@@ -96,6 +119,8 @@ ostream &operator<<(ostream &os, const GameOfLife &game)
     for (int col = 0; col < game.width_; ++col)
     {
       int index = row * game.width_ + col;
+
+      // Print the live cell if the current cell is alive, otherwise print the dead cell
       os << (game.current_[index] == game.liveCell_ ? game.liveCell_ : game.deadCell_);
     }
     os << "\n";
@@ -103,6 +128,7 @@ ostream &operator<<(ostream &os, const GameOfLife &game)
   return os;
 }
 
+/* Overloads the + operator to return a new game that is 'n' generations ahead of the current game. */
 GameOfLife GameOfLife::operator+(int n) const
 {
   GameOfLife temp = *this;
@@ -110,18 +136,21 @@ GameOfLife GameOfLife::operator+(int n) const
   return temp;
 }
 
+/* Overloads the += operator to advance the game by 'n' generations. */
 GameOfLife &GameOfLife::operator+=(int n)
 {
   NextNGen(n);
   return *this;
 }
 
+/* Overloads the ++ operator to advance the game by one generation. */
 GameOfLife &GameOfLife::operator++()
 {
   NextGen();
   return *this;
 }
 
+/* Overloads the ++ operator to advance the game by one generation. */
 GameOfLife GameOfLife::operator++(int)
 {
   GameOfLife temp = *this;
@@ -130,6 +159,9 @@ GameOfLife GameOfLife::operator++(int)
 }
 
 // Comparison operators
+
+/* Overloads the == operator to compare two games based on the percentage of live cells.                                           *
+ * Returns true if the percentage of live cells in the current game is within 0.5% of that in the other game, and false otherwise. */
 bool GameOfLife::operator==(const GameOfLife &other) const
 {
   double tolerance = 0.005; // 0.5%
@@ -138,6 +170,9 @@ bool GameOfLife::operator==(const GameOfLife &other) const
   return abs(thisPercent - otherPercent) <= tolerance;
 }
 
+
+/* Overloads the < operator to compare two games based on the percentage of live cells.                                                 *
+ * Returns true if the percentage of live cells in the current game is less than that in the other game, and false otherwise.           */
 bool GameOfLife::operator<(const GameOfLife &other) const
 {
   double thisPercent = static_cast<double>(count(this->current_.begin(), this->current_.end(), this->liveCell_)) / (this->width_ * this->height_);
@@ -145,16 +180,23 @@ bool GameOfLife::operator<(const GameOfLife &other) const
   return thisPercent < otherPercent;
 }
 
+
+/* Overloads the > operator to compare two games based on the percentage of live cells.                                                  *
+ * Returns true if the percentage of live cells in the current game is greater than that in the other game false otherwise.              */
 bool GameOfLife::operator>(const GameOfLife &other) const
 {
   return other < *this;
 }
 
+/* Overloads the <= operator to compare two games based on the percentage of live cells.                                                    *
+ * Returns true if the percentage of live cells in the current game is less than or equal to that in the other game, false otherwise.       */
 bool GameOfLife::operator<=(const GameOfLife &other) const
 {
   return !(other < *this);
 }
 
+/* Overloads the >= operator to compare two games based on the percentage of live cells.                                                     *                    
+ * Returns true if the percentage of live cells in the current game is greater than or equal to that in the other game, and false otherwise. */
 bool GameOfLife::operator>=(const GameOfLife &other) const
 {
   return !(*this < other);

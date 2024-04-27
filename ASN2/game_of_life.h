@@ -37,10 +37,11 @@ public:
     int GetGenerations() const;
 
     // Changes the current Live or Dead cell to a new character. 
-    //It cannot be set to whatever the current Dead/Live Cell character is.
-    //It throws a runtime error if the display characters are duplicated
+    // It cannot be set to whatever the current Dead/Live Cell character is.
+    // It throws a runtime error if the display characters are duplicated
     void SetLiveCell(char liveCell);
     void SetDeadCell(char deadCell);
+    void UpdateCellChars(char oldChar, char newChar);
 
     GameOfLife operator+(int n) const;
     GameOfLife& operator+=(int n);
