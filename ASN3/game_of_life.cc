@@ -80,7 +80,11 @@ GameOfLife::GameOfLife(const GameOfLife& other) {
 // Private constructor
 
 GameOfLife::GameOfLife(int height, int width, std::string gameBoard, char liveCell, char deadCell)
-    : height_(height), width_(width), liveCell_(liveCell), deadCell_(deadCell), generations_(0), current_(gameBoard) {}
+    : height_(height), width_(width), liveCell_(liveCell), deadCell_(deadCell), current_(gameBoard), generations_(0), safeGenerations_(0) {}
+
+
+// Destructor
+GameOfLife::~GameOfLife(){}
 
 
 // Setters for live and dead cells
@@ -144,13 +148,14 @@ GameOfLife& GameOfLife::operator+=(int gens) {
 }
 
 GameOfLife& GameOfLife::operator-=(int gens) {
-    if (gens < 0 || gens > safeGenerations_) {
-        throw std::range_error("Invalid number of generations to rollback");
+    if (gens > generations_) {
+        throw std::range_error("Invalid number of generations to rollback.");
     }
     current_ = previousGenerations_[generations_ - gens].game_board;
     generations_ -= gens;
     return *this;
 }
+
 
 GameOfLife GameOfLife::operator+(int gens) const {
     GameOfLife result = *this;
@@ -165,14 +170,21 @@ GameOfLife GameOfLife::operator-(int gens) const {
 }
 
 GameOfLife& GameOfLife::operator--() {
+    if (generations_ <= 0) {
+        throw std::range_error("Cannot decrement below zero generations.");
+    }
     return *this -= 1;
 }
 
 GameOfLife GameOfLife::operator--(int) {
+    if (generations_ <= 0) {
+        throw std::range_error("Cannot decrement below zero generations.");
+    }
     GameOfLife result = *this;
     --*this;
     return result;
 }
+
 
 GameOfLife GameOfLife::operator-() const {
     GameOfLife result = *this;
@@ -322,11 +334,14 @@ GameOfLife GameOfLife::GenSubGame(int row, int col, int height, int width) {
 }
 
 void GameOfLife::ToggleCell(int index) {
-    if (index < 0 || index >= this->current_.size()) {
+    // Cast current_.size() to int to avoid signed-unsigned comparison (compiler warning)
+    if (index < 0 || index >= static_cast<int>(this->current_.size())) {
         throw std::range_error("Index is out of bounds");
     }
+    // Toggle the cell state
     this->current_[index] = (this->current_[index] == this->liveCell_) ? this->deadCell_ : this->liveCell_;
 }
+
 
 void GameOfLife::ToggleCell(int row, int col) {
     if (row < 0 || row >= this->height_ || col < 0 || col >= this->width_) {

@@ -31,7 +31,7 @@ test: $(assignment).a
 		g++ -o test.exe test.cpp $(assignment).a
 	
 tar:
-		tar -cf $(assignment).tar *.cpp Makefile *.h
+		tar -cf $(assignment).tar *.cc Makefile *.h
 
 checkin: tar
 	~ct301/bin/checkin $(assignment) $(assignment).tar

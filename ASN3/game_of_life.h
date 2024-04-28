@@ -14,8 +14,10 @@ struct game_save_state {
 class GameOfLife
 {
     // Keep getting this annoying error about order of declaration...
-    int height_ = 0; int width_ = 0; char liveCell_ = '*'; char deadCell_ = '-';
-
+    int height_ = 0; 
+    int width_ = 0;
+    char liveCell_ = '*';
+    char deadCell_ = '-';
     std::string current_;
     int generations_ = 0;
     int safeGenerations_ = 0;
